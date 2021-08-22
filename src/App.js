@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Navbar, Sidebar, Footer } from "./components";
+import styled from "styled-components";
+import {
+  Home,
+  SingleProduct, // product Image Page and Single Product image logics are important Remember
+  Cart,
+  Checkout,
+  Error,
+  About,
+  Products,
+  PrivateRoute,
+} from "./pages";
+import ErrorPage from "./pages/ErrorPage";
+// `` tag template literals
+// ctrl +shift + L for multiple cursor
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar></Navbar>
+      <Sidebar></Sidebar>
+      <Switch>
+        <Route exact path="/">
+          <Home></Home>
+        </Route>
+        <Route exact path="/about">
+          <About></About>
+        </Route>
+        <Route exact path="/cart">
+          <Cart />
+        </Route>
+        <Route exact path="/products">
+          <Products />
+        </Route>
+        <Route exact path="/products/:id" children={<SingleProduct />}></Route>
+        <Route exact path="/checkout">
+          <Checkout />
+        </Route>
+        <Route path="*">
+          <ErrorPage />
+        </Route>
+      </Switch>
+      <Footer></Footer>
+    </Router>
   );
 }
 
